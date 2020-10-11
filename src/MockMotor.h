@@ -14,7 +14,7 @@ class MockMotor : public Motor
     void setStepFrequency(uint32_t stepFrequency, uint32_t limit = 0);
 
     uint32_t getTotalSteps();
-    uint32_t getAggregateSteps();
+    double getAggregateSteps();
 
     void resetSteps();
     void stop();
@@ -22,16 +22,20 @@ class MockMotor : public Motor
     bool isStopped();
     bool isMoving();
 
-  private:
+    bool step(uint32_t steps);
+
+  // private:
 
     void updateAggregateSteps();
-
+    uint32_t _steps;
     uint8_t _pin;
     uint8_t _dirPin;
+
     uint32_t _prevSteps;
-    uint32_t _aggregateSteps;
+    double _aggregateSteps;
     uint32_t _stepFrequency;
-    uint32_t _steps;
+    uint32_t _stepLimit;
+    uint32_t _prevStepSize;
     Motor_Direction_t _direction;
 };
 

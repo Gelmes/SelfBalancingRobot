@@ -24,6 +24,9 @@ EncoderMotor::EncoderMotor(uint8_t motorStepPin, uint8_t motorDirectionPin) :
     Motor(){
     _pin = motorStepPin;
     _dirPin = motorDirectionPin;
+    _prevSteps = 0;
+    _aggregateSteps = 0;
+    _direction = MOTOR_FORWARD;
     _motor.begin(_pin);
 }
 
@@ -43,6 +46,7 @@ void EncoderMotor::setStepFrequency(uint32_t stepFrequency, uint32_t limit){
             digitalWrite(_dirPin, LOW);
             _motor.play(stepFrequency, time);
             break;
+        default: break;
     }
 }
 
@@ -50,7 +54,7 @@ uint32_t EncoderMotor::getTotalSteps(){
     return _motor.getEpochTicks();
 }
 
-uint32_t EncoderMotor::getAggregateSteps(){
+double EncoderMotor::getAggregateSteps(){
     updateAggregateSteps();
     return _aggregateSteps;
 }
@@ -84,5 +88,6 @@ void EncoderMotor::updateAggregateSteps(){
         case MOTOR_BACKWARD:
             _aggregateSteps -= steps;
             break;
+        default: break;
     }
 }

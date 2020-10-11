@@ -3,6 +3,14 @@
 MockMotor::MockMotor(uint8_t motorStepPin, uint8_t motorDirectionPin){
     _pin = motorStepPin;
     _dirPin = motorDirectionPin;
+    _steps = 0;
+
+    _prevSteps = 0;
+    _aggregateSteps = 0;
+    _stepFrequency = 100;
+    _stepLimit = 0;
+    _prevStepSize = 0;
+    _direction = MOTOR_FORWARD;
 }
 
 void MockMotor::setDirection(Motor_Direction_t direction){
@@ -11,23 +19,17 @@ void MockMotor::setDirection(Motor_Direction_t direction){
 }
 
 void MockMotor::setStepFrequency(uint32_t stepFrequency, uint32_t limit){
-    _steps = limit;
-    switch (_direction){
-        case MOTOR_FORWARD:
-            _stepFrequency = stepFrequency;
-            break;
-        case MOTOR_BACKWARD:
-            _stepFrequency = -1 * stepFrequency;
-            break;
-        default: break;
-    }
+    _stepLimit = limit;
+    _stepFrequency = stepFrequency;
 }
 
 uint32_t MockMotor::getTotalSteps(){
+    updateAggregateSteps();
     return _steps;
 }
 
-uint32_t MockMotor::getAggregateSteps(){
+double MockMotor::getAggregateSteps(){
+    updateAggregateSteps();
     return _aggregateSteps;
 }
 
@@ -40,13 +42,30 @@ void MockMotor::stop(){
 }
 
 bool MockMotor::isStopped(){
-    return false;
+    return _prevSteps == _steps;
 }
 
 bool MockMotor::isMoving(){
+    return _prevSteps != _steps;
+}
+
+bool MockMotor::step(uint32_t steps){
+    _prevSteps = _steps;
+    _steps += steps;
+    _prevStepSize = steps;
     return true;
 }
 
 void MockMotor::updateAggregateSteps(){
+    switch (_direction){
+        case MOTOR_FORWARD:
+            _aggregateSteps += _prevStepSize;
+            break;
+        case MOTOR_BACKWARD:
+            _aggregateSteps -= _prevStepSize;
+            break;
+        default: break;
+    }
+    _prevStepSize = 0;
 
 }

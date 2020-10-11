@@ -31,7 +31,7 @@ class EncoderMotor : public Motor
     uint8_t _pin;
     uint8_t _dirPin;
     uint32_t _prevSteps;
-    uint32_t _aggregateSteps;
+    double _aggregateSteps;
     Motor_Direction_t _direction;
 };
 

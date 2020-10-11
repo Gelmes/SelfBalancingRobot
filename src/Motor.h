@@ -18,7 +18,7 @@ class Motor
     virtual void setDirection(Motor_Direction_t direction) = 0;
     virtual void setStepFrequency(uint32_t stepFrequency, uint32_t limit = 0) = 0;
     virtual uint32_t getTotalSteps() = 0;
-    virtual uint32_t getAggregateSteps() = 0;
+    virtual double getAggregateSteps() = 0;
     virtual void resetSteps() = 0;
     virtual void stop() = 0;
     virtual bool isStopped()= 0;
