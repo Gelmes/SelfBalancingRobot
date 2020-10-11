@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "/home/white/Downloads/arduino-1.6.13-linux64/arduino-1.6.13/tools/**",
-                "/home/white/Downloads/arduino-1.6.13-linux64/arduino-1.6.13/hardware/arduino/avr/**"
+                "/home/white/Downloads/arduino-1.6.13-linux64/arduino-1.6.13/hardware/arduino/avr/**",
+                "/home/Arduino/libraries/**"
             ],
             "forcedInclude": [
                 "/home/white/Downloads/arduino-1.6.13-linux64/arduino-1.6.13/hardware/arduino/avr/cores/arduino/Arduino.h"
