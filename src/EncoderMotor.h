@@ -15,7 +15,7 @@ class EncoderMotor : public Motor
     void setStepFrequency(uint32_t stepFrequency, uint32_t limit = 0);
 
     uint32_t getTotalSteps();
-    uint32_t getAggregateSteps();
+    double getAggregateSteps();
 
     void resetSteps();
     void stop();

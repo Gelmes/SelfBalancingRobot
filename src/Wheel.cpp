@@ -3,6 +3,7 @@
 Wheel::Wheel(Motor * motor)
 {
     _motor = motor;
+    _stepsInOneMeter = 1000;
 }
 
 void Wheel::setVelocityInMetersPerSecond(double velocity){
@@ -14,6 +15,7 @@ void Wheel::setStepsInOneMeter(uint32_t steps){
 }
 
 double Wheel::getDistanceInMeters(){
+
     double steps = _motor->getAggregateSteps();
     double result = steps / _stepsInOneMeter;
     return result;
